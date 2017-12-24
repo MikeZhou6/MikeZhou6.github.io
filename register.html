@@ -1,0 +1,82 @@
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title>注册界面</title>
+	</head>
+	<style>
+	</style>
+	<body>
+		<h1>register interface</h1>
+		&nbsp;&nbsp;ID:
+		<input type="text" id="t" onkeyup="check()"/>
+		<span id="s1"> </span>
+		<hr />
+		PW:
+		<input type="password" id="p1" onkeyup="check()"/>
+		<span id="s2"> </span>
+		<hr />
+		PW:
+		<input type="password" id="p2" onkeyup="check()"/>
+		<span id="s3"> </span>
+		<hr />
+		<button onclick="register();">register</button>
+	</body>
+	<script>
+		function check() {
+			checkNull();
+			checkPw();
+			checkID();
+		}
+		function checkNull() {
+			//判断非空
+			if (t.value != '' && p1.value != '' && p2.value != '') {
+				s1.innerHTML = '';
+				return 1;
+			} else {
+				s1.style.color = "red";
+				s1.innerHTML = "The account and password cannot be empty";
+				return 0;
+			}
+		}
+
+		var checkPw = function() {
+			//判断密码是否一致
+			if (checkNull()) {
+				if (p1.value == p2.value) {
+					s3.style.color = "green";
+					s3.innerHTML = 'passwords are equal!';
+					return 1;
+				} else {
+					s3.style.color = "red";
+					s3.innerHTML = 'passwords are different!';
+					return 0;
+				}
+			} else{
+				s3.innerHTML = '';
+			}
+		}
+		function checkID(){
+			if(s.getItem(t.value)){
+				s1.style.color = "red";
+				s1.innerHTML = 'Account already exists';
+				return 0;
+			}else{
+				s1.style.color = "green";
+				s1.innerHTML = 'Account can be registered'
+					;
+					return 1;
+					}
+					}
+					var s = window.localStorage;
+					function register() {
+						if (checkNull() && checkPw() && checkID()) {
+							s.setItem(t.value, p1.value);
+							alert('注册成功');
+							window.location = 'index.html';
+						} else {
+							alert('注册失败');
+						}
+					}
+
+	</script>
+</html>
